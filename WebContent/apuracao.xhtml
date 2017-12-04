@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Eleição 2018</title>
+          <meta name="author" content="TRE"></meta>
+</h:head>
+<h:body style="padding-top: 50px; padding-bottom: 20px; background-color: rgb(0, 0, 255);">
+	 <b:navBar brand="TRE" class="active" brand-href="home.xhtml" inverse="false" fixed="top">
+              <b:navbarLinks>
+                  <b:navLink value="Votar" href="votacao.xhtml"></b:navLink>
+                  <b:navLink value="Cadastro do Candidato" href="candidato.xhtml"></b:navLink>
+                  <b:navLink value="Apuração" href="apuracao.xhtml"></b:navLink>
+              </b:navbarLinks>
+          </b:navBar>
+
+	<b:container>
+		<br />
+		<b:row>
+			<!-- RANKING -->
+			<b:column col-md="6">
+				<h:form>
+					<p:dataScroller value="#{apuracaoController.candidatos}" var="candidato" chunkSize="5">
+						<f:facet name="header">
+            				Apuração das eleições
+        				</f:facet>
+						
+						<f:facet name="loader">
+							<p:commandButton type="button" value="More"
+								icon="ui-icon-circle-triangle-s" />
+						</f:facet>
+						<b:panel>
+								<p:outputPanel>
+									<h:panelGrid columns="3">
+										<b:column>
+											<p:graphicImage cache="false" value="#{imagesView.imagem}" weight="150" height="75">
+												<f:param name="candidatoId" value="#{candidato.id}"/>
+											</p:graphicImage>
+										</b:column>
+										<b:column>
+											<h:outputText value="Candidato: " />
+											<h:outputText value="#{candidato.nome}" style="font-weight: bold" />
+											<br/>
+											<h:outputText value="Partido: " />
+											<h:outputText value="#{candidato.partido}" style="font-weight: bold" />
+										</b:column>
+										<b:column>
+											<h:outputText value="Votos: " />
+											<h:outputText update="refresh" value="#{candidato.votos}" style="font-weight: bold" />
+										</b:column>
+										</h:panelGrid>
+								</p:outputPanel>
+						</b:panel>
+					</p:dataScroller>
+				</h:form>
+			</b:column>
+			<!-- GRAFICOS -->
+			<b:column col-md="6">
+				<p:chart type="pie" model="#{apuracaoController.pieModel2}" style="width:400px;height:300px;"/>
+			</b:column>
+		</b:row>
+	</b:container>
+	<b:container>
+		<hr />
+		<footer>
+		<p style="color: white;">Agora para música ficar comercial Vai
+			entrar um solinho de flautinha genial!</p>
+		</footer>
+	</b:container>
+</h:body>
+</html>
